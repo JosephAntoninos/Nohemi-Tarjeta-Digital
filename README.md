@@ -42,7 +42,7 @@ Edita `index.html`:
     +52 55 3117 8903
 </a>
 
-5 🌐 Ver en vivo
+6 🌐 Ver en vivo
 
 https://josephantoninos.github.io/Nohemi-Tarjeta-Digital/
 
@@ -51,8 +51,10 @@ https://josephantoninos.github.io/Nohemi-Tarjeta-Digital/
 👤 Creador
 
 **Joseph Antoninos**
-- WhatsApp: [+52 55 3117 8903](https://wa.me/525531178903)
+
+📱 WhatsApp: +52 55 3117 8903
+💼 GitHub
 
 📄 Licencia
 
-Libre de uso.
+Este proyecto es de uso libre. Puedes modificarlo y adaptarlo a tus necesidades.
