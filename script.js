@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    const ACCOUNT_NUMBER = '638 180 000 048 723 424';
+    const ACCOUNT_NUMBER = '638180000048723424';
 
     const copyBtn = document.getElementById('copyButton');
     const toast = document.getElementById('toast');
@@ -10,7 +10,6 @@
 
     let toastTimer;
 
-    // ---- Copiar al portapapeles ----
     function copyText(text, successMsg = '✅ Número copiado') {
         if (!navigator.clipboard) {
             const textarea = document.createElement('textarea');
@@ -31,7 +30,6 @@
             .catch(() => showToast('❌ Error al copiar'));
     }
 
-    // ---- Toast ----
     function showToast(msg) {
         clearTimeout(toastTimer);
         toast.textContent = msg;
@@ -39,19 +37,16 @@
         toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
     }
 
-    // ---- Obtener URL actual ----
     function getCurrentUrl() {
         return window.location.href;
     }
 
-    // ---- Construir URL de WhatsApp ----
     function buildWhatsAppUrl() {
         const url = getCurrentUrl();
-        const message = `💳 *Tarjeta de débito*%0A📋 Número: ${ACCOUNT_NUMBER}%0A🔗 ${url}`;
+        const message = `💳 *Tarjeta de débito digital*%0ACon un solo clic puedes copiar el número de cuenta. Mírala aquí:%0A${url}`;
         return `https://api.whatsapp.com/send?text=${message}`;
     }
 
-    // ---- EVENTOS ----
     copyBtn.addEventListener('click', function(e) {
         e.preventDefault();
         copyText(ACCOUNT_NUMBER);
@@ -78,10 +73,8 @@
         window.open(buildWhatsAppUrl(), '_blank');
     });
 
-    // Inicializar href
     whatsappBtn.href = buildWhatsAppUrl();
 
-    // Si cambia la URL (SPA)
     window.addEventListener('popstate', function() {
         whatsappBtn.href = buildWhatsAppUrl();
     });
