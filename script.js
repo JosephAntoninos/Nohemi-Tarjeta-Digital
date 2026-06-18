@@ -1,10 +1,11 @@
 (function() {
     'use strict';
 
-    const ACCOUNT_NUMBER = '638180000048723424';
+    const ACCOUNT_NUMBER = '638 180 000 048 723 424';
 
     const copyBtn = document.getElementById('copyButton');
     const toast = document.getElementById('toast');
+    const copyLinkBtn = document.getElementById('copyLinkButton');
     const whatsappBtn = document.getElementById('whatsappShare');
 
     let toastTimer;
@@ -46,7 +47,7 @@
     // ---- Construir URL de WhatsApp ----
     function buildWhatsAppUrl() {
         const url = getCurrentUrl();
-        const message = `🔗 ${url}`;
+        const message = `💳 *Tarjeta de débito*%0A📋 Número: ${ACCOUNT_NUMBER}%0A🔗 ${url}`;
         return `https://api.whatsapp.com/send?text=${message}`;
     }
 
@@ -58,7 +59,20 @@
         setTimeout(() => copyBtn.classList.remove('copied'), 1800);
     });
 
-    // Solo queda el botón de WhatsApp
+    copyLinkBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const url = getCurrentUrl();
+        copyText(url, '✅ Link copiado');
+        copyLinkBtn.style.backgroundColor = '#a0a4ab';
+        copyLinkBtn.style.color = '#3e0c11';
+        copyLinkBtn.style.borderColor = '#d29ea4';
+        setTimeout(() => {
+            copyLinkBtn.style.backgroundColor = '';
+            copyLinkBtn.style.color = '';
+            copyLinkBtn.style.borderColor = '';
+        }, 1800);
+    });
+
     whatsappBtn.addEventListener('click', function(e) {
         e.preventDefault();
         window.open(buildWhatsAppUrl(), '_blank');
@@ -67,7 +81,7 @@
     // Inicializar href
     whatsappBtn.href = buildWhatsAppUrl();
 
-    // Si cambia la URL (por si acaso)
+    // Si cambia la URL (SPA)
     window.addEventListener('popstate', function() {
         whatsappBtn.href = buildWhatsAppUrl();
     });
