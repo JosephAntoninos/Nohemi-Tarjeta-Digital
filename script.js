@@ -1,12 +1,13 @@
 (function() {
     'use strict';
 
-    const ACCOUNT_NUMBER = '638180000048723424';
+    const ACCOUNT_NUMBER = '638 180 000 048 723 424';
 
     const copyBtn = document.getElementById('copyButton');
     const toast = document.getElementById('toast');
-    const copyLinkBtn = document.getElementById('copyLinkButton');
     const whatsappBtn = document.getElementById('whatsappShare');
+
+    let toastTimer;
 
     // ---- Copiar al portapapeles ----
     function copyText(text, successMsg = '✅ Número copiado') {
@@ -31,10 +32,10 @@
 
     // ---- Toast ----
     function showToast(msg) {
+        clearTimeout(toastTimer);
         toast.textContent = msg;
         toast.classList.add('show');
-        clearTimeout(toast._hideTimer);
-        toast._hideTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
     }
 
     // ---- Obtener URL actual ----
@@ -57,30 +58,16 @@
         setTimeout(() => copyBtn.classList.remove('copied'), 1800);
     });
 
-    copyLinkBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const url = getCurrentUrl();
-        copyText(url, '✅ Link copiado');
-        // feedback visual
-        copyLinkBtn.style.backgroundColor = '#a0a4ab';
-        copyLinkBtn.style.color = '#3e0c11';
-        copyLinkBtn.style.borderColor = '#d29ea4';
-        setTimeout(() => {
-            copyLinkBtn.style.backgroundColor = '';
-            copyLinkBtn.style.color = '';
-            copyLinkBtn.style.borderColor = '';
-        }, 1800);
-    });
-
+    // Solo queda el botón de WhatsApp
     whatsappBtn.addEventListener('click', function(e) {
         e.preventDefault();
         window.open(buildWhatsAppUrl(), '_blank');
     });
 
-    // ---- Inicializar href ----
+    // Inicializar href
     whatsappBtn.href = buildWhatsAppUrl();
 
-    // ---- Si cambia la URL (SPA) ----
+    // Si cambia la URL (por si acaso)
     window.addEventListener('popstate', function() {
         whatsappBtn.href = buildWhatsAppUrl();
     });
