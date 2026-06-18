@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    const ACCOUNT_NUMBER = '638 180 000 048 723 424';
+    const ACCOUNT_NUMBER = '638180000048723424';
 
     const copyBtn = document.getElementById('copyButton');
     const toast = document.getElementById('toast');
@@ -46,7 +46,7 @@
     // ---- Construir URL de WhatsApp ----
     function buildWhatsAppUrl() {
         const url = getCurrentUrl();
-        const message = `💳 *Tarjeta de débito*%0A🔗 ${url}`;
+        const message = `🔗 ${url}`;
         return `https://api.whatsapp.com/send?text=${message}`;
     }
 
