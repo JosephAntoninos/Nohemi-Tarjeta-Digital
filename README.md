@@ -44,17 +44,20 @@ Edita `index.html`:
 
 6 🌐 Ver en vivo
 
-(https://josephantoninos.github.io/Nohemi-Tarjeta-Digital/)
+[Ver tarjeta digital](https://josephantoninos.github.io/Nohemi-Tarjeta-Digital/)
 
 ---
 
-👤 Creador
+## 👤 Creador
 
 **Joseph Antoninos**
 
-📱 WhatsApp: +52 55 3117 8903
-💼 GitHub
+📱 [Contactar por WhatsApp](https://wa.me/525531178903)
 
-📄 Licencia
+💼 GitHub: [JosephAntoninos](https://github.com/JosephAntoninos)
+
+---
+
+## 📄 Licencia
 
 Este proyecto es de uso libre. Puedes modificarlo y adaptarlo a tus necesidades.
