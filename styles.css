@@ -11,7 +11,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     padding: 16px;
     overflow-x: hidden;
 }
@@ -31,7 +31,6 @@ body {
     animation: floatParticle linear infinite;
     will-change: transform, opacity;
 }
-/* Ahora solo 6 partículas */
 .particle:nth-child(1) { width: 8px; height: 8px; left: 10%; animation-duration: 18s; animation-delay: 0s; }
 .particle:nth-child(2) { width: 12px; height: 12px; left: 30%; animation-duration: 22s; animation-delay: 2s; }
 .particle:nth-child(3) { width: 5px; height: 5px; left: 50%; animation-duration: 16s; animation-delay: 4s; }
@@ -104,13 +103,32 @@ body::before {
     animation: borderGlow 6s ease-in-out infinite;
     opacity: 0.3;
 }
+/* Nuevo: brillo móvil interno */
+.card-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+    transform: skewX(-25deg);
+    animation: shineMove 8s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+@keyframes shineMove {
+    0% { left: -75%; }
+    50% { left: 125%; }
+    100% { left: 125%; }
+}
 @keyframes borderGlow {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
 }
 @keyframes cardPulse {
     0%, 100% { box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.04); }
-    50% { box-shadow: 0 30px 70px rgba(176,0,2,0.2), 0 0 0 1px rgba(210,158,164,0.2); }
+    50% { box-shadow: 0 30px 60px rgba(176,0,2,0.2), 0 0 0 1px rgba(210,158,164,0.2); }
 }
 .card-container:hover {
     transform: scale(1.005);
@@ -121,6 +139,8 @@ body::before {
 .card-image-wrapper {
     perspective: 1000px;
     margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
 }
 .card-image {
     display: block;
@@ -142,7 +162,7 @@ body::before {
 .card-image:hover {
     transform: translateY(-8px) rotateX(4deg) scale(1.02);
     border-color: #a0a4ab;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(210,158,164,0.1);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(210,158,164,0.15);
 }
 
 /* ===== BOTÓN COPIAR ===== */
@@ -150,6 +170,8 @@ body::before {
     display: flex;
     justify-content: center;
     margin: 4px 0 20px 0;
+    position: relative;
+    z-index: 1;
 }
 .copy-btn {
     background: #b00002;
@@ -174,7 +196,7 @@ body::before {
 }
 @keyframes btnPulse {
     0%, 100% { box-shadow: 0 4px 15px rgba(176,0,2,0.5); }
-    50% { box-shadow: 0 4px 30px rgba(176,0,2,0.8); }
+    50% { box-shadow: 0 4px 25px rgba(176,0,2,0.8); }
 }
 .copy-btn::before {
     content: '';
@@ -230,6 +252,10 @@ body::before {
     stroke-linecap: round;
     stroke-linejoin: round;
     flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+.copy-btn:hover svg {
+    transform: rotate(4deg) scale(1.1);
 }
 
 /* ===== COMPARTIR ===== */
@@ -239,6 +265,8 @@ body::before {
     flex-direction: column;
     align-items: center;
     gap: 12px;
+    position: relative;
+    z-index: 1;
 }
 .share-label {
     color: #a0a4ab;
@@ -250,6 +278,19 @@ body::before {
     border-radius: 40px;
     border: 1px solid rgba(160,164,171,0.2);
     animation: labelPulse 3s ease-in-out infinite;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.share-label::before {
+    content: '✦';
+    display: inline-block;
+    animation: sparkle 2s linear infinite;
+}
+@keyframes sparkle {
+    0% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+    50% { transform: scale(1.3) rotate(180deg); opacity: 1; }
+    100% { transform: scale(1) rotate(360deg); opacity: 0.8; }
 }
 @keyframes labelPulse {
     0%, 100% { opacity: 0.7; }
@@ -262,8 +303,6 @@ body::before {
     gap: 10px;
     width: 100%;
 }
-
-/* Botón WhatsApp con colores del antiguo link */
 .share-btn {
     background: rgba(62,12,17,0.6);
     backdrop-filter: blur(4px);
@@ -279,11 +318,19 @@ body::before {
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     text-decoration: none;
+    flex: 1 1 auto;
     justify-content: center;
     min-width: 110px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     position: relative;
     overflow: hidden;
+    animation: shareBtnFloat 3s ease-in-out infinite;
+}
+.share-btn:nth-child(1) { animation-delay: 0s; }
+.share-btn:nth-child(2) { animation-delay: 0.5s; }
+@keyframes shareBtnFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
 }
 .share-btn::before {
     content: '';
@@ -302,8 +349,8 @@ body::before {
     background: rgba(210,158,164,0.15);
     border-color: #d29ea4;
     color: #ffffff;
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
 }
 .share-btn:active {
     transform: scale(0.95);
@@ -317,23 +364,34 @@ body::before {
     stroke-linecap: round;
     stroke-linejoin: round;
     flex-shrink: 0;
+    transition: transform 0.3s ease;
 }
-
-/* Estilo específico para WhatsApp con apariencia "link" */
-.share-btn.whatsapp-link-style {
+.share-btn:hover svg {
+    transform: rotate(-5deg) scale(1.1);
+}
+.share-btn.whatsapp {
+    background: #b00002;
+    color: white;
+    border-color: #b00002;
+}
+.share-btn.whatsapp svg {
+    fill: currentColor;
+    stroke: none;
+}
+.share-btn.whatsapp:hover {
+    background: #8f0002;
+    border-color: #d29ea4;
+    color: white;
+}
+.share-btn.link {
     background: #302a2c;
     color: #d29ea4;
     border-color: #a0a4ab;
 }
-.share-btn.whatsapp-link-style:hover {
+.share-btn.link:hover {
     background: #a0a4ab;
     color: #3e0c11;
     border-color: #d29ea4;
-}
-/* Corregir el SVG de WhatsApp (requiere fill, no stroke) */
-.share-btn.whatsapp-link-style svg {
-    fill: currentColor;
-    stroke: none;
 }
 
 /* ===== FOOTER ===== */
@@ -392,6 +450,11 @@ body::before {
     margin-top: 2px;
     position: relative;
     overflow: hidden;
+    animation: footerWhatsappPulse 2s ease-in-out infinite;
+}
+@keyframes footerWhatsappPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(210,158,164,0); }
+    50% { box-shadow: 0 0 0 8px rgba(210,158,164,0.1); }
 }
 .footer-whatsapp::before {
     content: '';
@@ -411,7 +474,7 @@ body::before {
     border-color: #d29ea4;
     color: #ffffff;
     transform: scale(1.05) translateY(-2px);
-    box-shadow: 0 4px 20px rgba(210,158,164,0.1);
+    box-shadow: 0 4px 20px rgba(210,158,164,0.15);
 }
 .footer-whatsapp svg {
     width: 16px;
@@ -474,9 +537,7 @@ body::before {
         animation-iteration-count: 1 !important;
         transition-duration: 0.001ms !important;
     }
-    .particles {
-        display: none;
-    }
+    .particles,
     body::before {
         display: none;
     }
