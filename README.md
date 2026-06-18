@@ -40,7 +40,7 @@ Edita `index.html`:
 ```html
 <a href="https://wa.me/525531178903">
     +52 55 3117 8903
-</a>
+</a>```
 
 6 🌐 Ver en vivo
 
