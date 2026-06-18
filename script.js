@@ -46,7 +46,7 @@
     // ---- Construir URL de WhatsApp ----
     function buildWhatsAppUrl() {
         const url = getCurrentUrl();
-        const message = `💳 *Tarjeta de débito*%0A📋 Número: ${ACCOUNT_NUMBER}%0A🔗 ${url}`;
+        const message = `💳 *Tarjeta de débito*%0A🔗 ${url}`;
         return `https://api.whatsapp.com/send?text=${message}`;
     }
 
