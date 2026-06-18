@@ -44,7 +44,7 @@ Edita `index.html`:
 
 6 🌐 Ver en vivo
 
-https://josephantoninos.github.io/Nohemi-Tarjeta-Digital/
+(https://josephantoninos.github.io/Nohemi-Tarjeta-Digital/)
 
 ---
 
