@@ -48,7 +48,7 @@ Edita `index.html`:
 
 ---
 
-## 👤 Creador
+👤 Creador
 
 **Joseph Antoninos**
 
@@ -58,6 +58,6 @@ Edita `index.html`:
 
 ---
 
-## 📄 Licencia
+📄 Licencia
 
 Este proyecto es de uso libre. Puedes modificarlo y adaptarlo a tus necesidades.
